@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NgrxFormsModule } from 'ngrx-forms';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { NgrxFormsModule } from "ngrx-forms";
 
-import { SharedModule } from '../shared/shared.module';
-import { LocalStateIntroductionComponent } from './local-state-introduction.component';
+import { SharedModule } from "../shared/shared.module";
+import { LocalStateIntroductionComponent } from "./local-state-introduction.component";
 
 @NgModule({
   imports: [
@@ -12,12 +12,10 @@ import { LocalStateIntroductionComponent } from './local-state-introduction.comp
     NgrxFormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: LocalStateIntroductionComponent },
+      { path: "", component: LocalStateIntroductionComponent },
     ]),
     // Notice that StoreModule.forFeature is not included here!
   ],
-  declarations: [
-    LocalStateIntroductionComponent,
-  ],
+  declarations: [LocalStateIntroductionComponent],
 })
-export class LocalStateIntroductionModule { }
+export class LocalStateIntroductionModule {}

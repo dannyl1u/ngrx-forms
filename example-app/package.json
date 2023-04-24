@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "14.3.2",
     "core-js": "3.26.0",
     "ngrx-forms": "file:../ngrx-forms-8.0.0.tgz",
+    "prettier": "^2.8.8",
     "prismjs": "1.29.0",
     "rxjs": "7.5.7",
     "tslib": "2.4.0",

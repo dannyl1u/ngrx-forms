@@ -1,20 +1,24 @@
-import { AfterViewInit, Directive, forwardRef, OnDestroy } from '@angular/core';
-import { MatSelect } from '@angular/material/select';
-import { FormViewAdapter, NGRX_FORM_VIEW_ADAPTER } from 'ngrx-forms';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, Directive, forwardRef, OnDestroy } from "@angular/core";
+import { MatSelect } from "@angular/material/select";
+import { FormViewAdapter, NGRX_FORM_VIEW_ADAPTER } from "ngrx-forms";
+import { Subscription } from "rxjs";
 
 // tslint:disable:directive-selector
 // tslint:disable:directive-class-suffix
 // necessary since material 2 does not properly export the mat-select as a NG_VALUE_ACCESSOR
 @Directive({
-  selector: 'mat-select[ngrxFormControlState]',
-  providers: [{
-    provide: NGRX_FORM_VIEW_ADAPTER,
-    useExisting: forwardRef(() => NgrxMatSelectViewAdapter),
-    multi: true,
-  }],
+  selector: "mat-select[ngrxFormControlState]",
+  providers: [
+    {
+      provide: NGRX_FORM_VIEW_ADAPTER,
+      useExisting: forwardRef(() => NgrxMatSelectViewAdapter),
+      multi: true,
+    },
+  ],
 })
-export class NgrxMatSelectViewAdapter implements FormViewAdapter, AfterViewInit, OnDestroy {
+export class NgrxMatSelectViewAdapter
+  implements FormViewAdapter, AfterViewInit, OnDestroy
+{
   private value: any;
   private subscriptions: Subscription[] = [];
 
@@ -29,7 +33,7 @@ export class NgrxMatSelectViewAdapter implements FormViewAdapter, AfterViewInit,
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   setViewValue(value: any) {
@@ -41,7 +45,10 @@ export class NgrxMatSelectViewAdapter implements FormViewAdapter, AfterViewInit,
 
     if (selectedOption) {
       if (Array.isArray(selectedOption) && Array.isArray(value)) {
-        if (value.length === selectedOption.length && value.every((v, i) => v === selectedOption[i])) {
+        if (
+          value.length === selectedOption.length &&
+          value.every((v, i) => v === selectedOption[i])
+        ) {
           return;
         }
       } else if (!Array.isArray(selectedOption)) {
@@ -57,7 +64,7 @@ export class NgrxMatSelectViewAdapter implements FormViewAdapter, AfterViewInit,
   }
 
   setOnChangeCallback(fn: any) {
-    this.matSelect.registerOnChange(value => {
+    this.matSelect.registerOnChange((value) => {
       this.value = value;
       fn(value);
     });

@@ -1,7 +1,11 @@
-import { Action, combineReducers } from '@ngrx/store';
-import { createFormGroupState, formGroupReducer, FormGroupState } from 'ngrx-forms';
+import { Action, combineReducers } from "@ngrx/store";
+import {
+  createFormGroupState,
+  formGroupReducer,
+  FormGroupState,
+} from "ngrx-forms";
 
-import { State as RootState } from '../app.reducer';
+import { State as RootState } from "../app.reducer";
 
 export interface FormValue {
   firstName: string;
@@ -21,24 +25,24 @@ export interface State extends RootState {
 }
 
 export class SetSubmittedValueAction implements Action {
-  static readonly TYPE = 'simpleForm/SET_SUBMITTED_VALUE';
+  static readonly TYPE = "simpleForm/SET_SUBMITTED_VALUE";
   readonly type = SetSubmittedValueAction.TYPE;
-  constructor(public submittedValue: FormValue) { }
+  constructor(public submittedValue: FormValue) {}
 }
 
-export const FORM_ID = 'simpleForm';
+export const FORM_ID = "simpleForm";
 
 export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {
-  firstName: '',
-  lastName: '',
-  email: '',
-  sex: '',
-  favoriteColor: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  sex: "",
+  favoriteColor: "",
   employed: false,
-  notes: '',
+  notes: "",
 });
 
-const reducers = combineReducers<State['simpleForm'], any>({
+const reducers = combineReducers<State["simpleForm"], any>({
   formState(s = INITIAL_STATE, a: Action) {
     return formGroupReducer(s, a);
   },
@@ -53,6 +57,6 @@ const reducers = combineReducers<State['simpleForm'], any>({
   },
 });
 
-export function reducer(s: State['simpleForm'], a: Action) {
+export function reducer(s: State["simpleForm"], a: Action) {
   return reducers(s, a);
 }

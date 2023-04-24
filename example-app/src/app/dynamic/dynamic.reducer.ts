@@ -1,4 +1,4 @@
-import { Action, combineReducers } from '@ngrx/store';
+import { Action, combineReducers } from "@ngrx/store";
 import {
   AddArrayControlAction,
   addGroupControl,
@@ -8,9 +8,9 @@ import {
   RemoveArrayControlAction,
   setValue,
   updateGroup,
-} from 'ngrx-forms';
+} from "ngrx-forms";
 
-import { State as RootState } from '../app.reducer';
+import { State as RootState } from "../app.reducer";
 
 export interface FormValue {
   array: boolean[];
@@ -29,18 +29,18 @@ export interface State extends RootState {
 }
 
 export class CreateGroupElementAction implements Action {
-  static readonly TYPE = 'dynamic/CREATE_GROUP_ELEMENT';
+  static readonly TYPE = "dynamic/CREATE_GROUP_ELEMENT";
   readonly type = CreateGroupElementAction.TYPE;
-  constructor(public name: string) { }
+  constructor(public name: string) {}
 }
 
 export class RemoveGroupElementAction implements Action {
-  static readonly TYPE = 'dynamic/REMOVE_GROUP_ELEMENT';
+  static readonly TYPE = "dynamic/REMOVE_GROUP_ELEMENT";
   readonly type = RemoveGroupElementAction.TYPE;
-  constructor(public name: string) { }
+  constructor(public name: string) {}
 }
 
-export const FORM_ID = 'dynamic';
+export const FORM_ID = "dynamic";
 
 export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {
   array: [false, false],
@@ -52,14 +52,14 @@ export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {
 
 export function formStateReducer(
   s = INITIAL_STATE,
-  a: CreateGroupElementAction | RemoveGroupElementAction,
+  a: CreateGroupElementAction | RemoveGroupElementAction
 ) {
   s = formGroupReducer(s, a);
 
   switch (a.type) {
     case CreateGroupElementAction.TYPE:
       return updateGroup<FormValue>({
-        group: group => {
+        group: (group) => {
           const newGroup = addGroupControl(group, a.name, false);
 
           // alternatively we can also use setValue
@@ -72,7 +72,7 @@ export function formStateReducer(
 
     case RemoveGroupElementAction.TYPE:
       return updateGroup<FormValue>({
-        group: group => {
+        group: (group) => {
           const newValue = { ...group.value };
           delete newValue[a.name];
           const newGroup = setValue(group, newValue);
@@ -89,11 +89,11 @@ export function formStateReducer(
   }
 }
 
-const reducers = combineReducers<State['dynamic'], any>({
+const reducers = combineReducers<State["dynamic"], any>({
   formState: formStateReducer,
   array(
     s = { maxIndex: 2, options: [1, 2] },
-    a: AddArrayControlAction<boolean> | RemoveArrayControlAction,
+    a: AddArrayControlAction<boolean> | RemoveArrayControlAction
   ) {
     switch (a.type) {
       case AddArrayControlAction.TYPE: {
@@ -122,15 +122,15 @@ const reducers = combineReducers<State['dynamic'], any>({
     }
   },
   groupOptions(
-    s: string[] = ['abc', 'xyz'],
-    a: CreateGroupElementAction | RemoveGroupElementAction,
+    s: string[] = ["abc", "xyz"],
+    a: CreateGroupElementAction | RemoveGroupElementAction
   ) {
     switch (a.type) {
       case CreateGroupElementAction.TYPE:
         return [...s, a.name];
 
       case RemoveGroupElementAction.TYPE:
-        return s.filter(i => i !== a.name);
+        return s.filter((i) => i !== a.name);
 
       default:
         return s;
@@ -138,6 +138,6 @@ const reducers = combineReducers<State['dynamic'], any>({
   },
 });
 
-export function reducer(s: State['dynamic'], a: Action) {
+export function reducer(s: State["dynamic"], a: Action) {
   return reducers(s, a);
 }

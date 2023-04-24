@@ -1,8 +1,14 @@
-import { Action, combineReducers } from '@ngrx/store';
-import { createFormGroupState, createFormStateReducerWithUpdate, FormGroupState, updateGroup, validate } from 'ngrx-forms';
-import { greaterThan, required } from 'ngrx-forms/validation';
+import { Action, combineReducers } from "@ngrx/store";
+import {
+  createFormGroupState,
+  createFormStateReducerWithUpdate,
+  FormGroupState,
+  updateGroup,
+  validate,
+} from "ngrx-forms";
+import { greaterThan, required } from "ngrx-forms/validation";
 
-import { State as RootState } from '../app.reducer';
+import { State as RootState } from "../app.reducer";
 
 export interface FormValue {
   searchTerm: string;
@@ -17,24 +23,26 @@ export interface State extends RootState {
 }
 
 export class SetSearchResultAction implements Action {
-  static readonly TYPE = 'asyncValidation/SET_SEARCH_RESULT';
+  static readonly TYPE = "asyncValidation/SET_SEARCH_RESULT";
   readonly type = SetSearchResultAction.TYPE;
-  constructor(public results: string[]) { }
+  constructor(public results: string[]) {}
 }
 
-export const FORM_ID = 'asyncValidation';
+export const FORM_ID = "asyncValidation";
 
 export const INITIAL_STATE = createFormGroupState<FormValue>(FORM_ID, {
-  searchTerm: '',
+  searchTerm: "",
   numberOfResultsToShow: 5,
 });
 
-const formGroupReducerWithUpdate = createFormStateReducerWithUpdate<FormValue>(updateGroup<FormValue>({
-  searchTerm: validate(required),
-  numberOfResultsToShow: validate(required, greaterThan(0)),
-}));
+const formGroupReducerWithUpdate = createFormStateReducerWithUpdate<FormValue>(
+  updateGroup<FormValue>({
+    searchTerm: validate(required),
+    numberOfResultsToShow: validate(required, greaterThan(0)),
+  })
+);
 
-const reducers = combineReducers<State['asyncValidation']>({
+const reducers = combineReducers<State["asyncValidation"]>({
   formState(s = INITIAL_STATE, a: Action) {
     return formGroupReducerWithUpdate(s, a);
   },
@@ -47,6 +55,6 @@ const reducers = combineReducers<State['asyncValidation']>({
   },
 });
 
-export function reducer(s: State['asyncValidation'], a: Action) {
+export function reducer(s: State["asyncValidation"], a: Action) {
   return reducers(s, a);
 }

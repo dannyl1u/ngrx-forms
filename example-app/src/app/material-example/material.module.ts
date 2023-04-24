@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { NgrxFormsModule } from 'ngrx-forms';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { StoreModule } from "@ngrx/store";
+import { NgrxFormsModule } from "ngrx-forms";
 
-import { MaterialModule } from '../material';
-import { SharedModule } from '../shared/shared.module';
-import { DynamicPageComponent } from './material.component';
-import { reducer } from './material.reducer';
+import { MaterialModule } from "../material";
+import { SharedModule } from "../shared/shared.module";
+import { DynamicPageComponent } from "./material.component";
+import { reducer } from "./material.reducer";
 
 @NgModule({
   imports: [
@@ -15,13 +15,9 @@ import { reducer } from './material.reducer';
     MaterialModule,
     NgrxFormsModule,
     SharedModule,
-    RouterModule.forChild([
-      { path: '', component: DynamicPageComponent },
-    ]),
-    StoreModule.forFeature('material', reducer),
+    RouterModule.forChild([{ path: "", component: DynamicPageComponent }]),
+    StoreModule.forFeature("material", reducer),
   ],
-  declarations: [
-    DynamicPageComponent,
-  ],
+  declarations: [DynamicPageComponent],
 })
-export class MaterialExampleModule { }
+export class MaterialExampleModule {}

@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { NgrxFormsModule } from 'ngrx-forms';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { StoreModule } from "@ngrx/store";
+import { NgrxFormsModule } from "ngrx-forms";
 
-import { MaterialModule } from '../material';
-import { SharedModule } from '../shared/shared.module';
-import { SyncValidationPageComponent } from './sync-validation.component';
-import { reducer } from './sync-validation.reducer';
+import { MaterialModule } from "../material";
+import { SharedModule } from "../shared/shared.module";
+import { SyncValidationPageComponent } from "./sync-validation.component";
+import { reducer } from "./sync-validation.reducer";
 
 @NgModule({
   imports: [
@@ -16,12 +16,10 @@ import { reducer } from './sync-validation.reducer';
     NgrxFormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: SyncValidationPageComponent },
+      { path: "", component: SyncValidationPageComponent },
     ]),
-    StoreModule.forFeature('syncValidation', reducer),
+    StoreModule.forFeature("syncValidation", reducer),
   ],
-  declarations: [
-    SyncValidationPageComponent,
-  ],
+  declarations: [SyncValidationPageComponent],
 })
-export class SyncValidationModule { }
+export class SyncValidationModule {}
